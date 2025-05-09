@@ -4,7 +4,7 @@ This project uses machine learning to identify fake news articles. By studying l
 ---
 
 ## **Project Overview** 📌
-In this project, news article titles, content, and metadata such as publication dates were analyzed. Key parts of the dataset:
+In this project, news article titles, content, publication dates were analyzed. Key parts of the dataset:
 - **Label**: Indicates whether the article is Fake (1) or Real (0).
 - **Titles** and Text: Checked for specific patterns and language styles.
 - **Publication Dates**: Analyzed to find when fake news is most commonly shared.
