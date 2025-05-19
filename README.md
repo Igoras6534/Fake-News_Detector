@@ -1,15 +1,21 @@
-# Fake News Detection Project📰
-This project uses machine learning to identify fake news articles. By studying labeled datasets, the model learns patterns that help distinguish fake news from real news, making accurate predictions.
+# 📰 Fake-News Detector
+
+A lightweight Flask app that flags misleading articles.  
+Two models run side-by-side: a **TF-IDF+LR** and a **fine-tuned BERT** approach.
 
 ---
 
-## **Project Overview** 📌
-In this project, news article titles, content, publication dates were analyzed. Key parts of the dataset:
-- **Label**: Indicates whether the article is Fake (1) or Real (0).
-- **Titles** and Text: Checked for specific patterns and language styles.
-- **Publication Dates**: Analyzed to find when fake news is most commonly shared.
+## Project Overview
 
+| Approach | Snapshot |
+|----------|----------|
+| **TF-IDF → Logistic Regression** | Fast baseline, trained on a 2017 open corpus; instant prediction. |
+| **Fine-Tuned BERT** | Based on `bert-base-uncased`, fine-tuned  on the 2023 *Truth Seeker* dataset - https://www.unb.ca/cic/datasets/truthseeker-2023|
 ---
 
-![fn](https://github.com/user-attachments/assets/04f51ba4-0196-413b-b0a2-d7ac883b60e6)
+![lr+bert](https://github.com/user-attachments/assets/a0496079-b1da-45a2-98f9-0689806a242a)
 
+## Future Steps 🚧
+
+- Retrain the TF-IDF pipeline on the 2023 corpus with full CV + grid-search (LR, SVM, XGBoost).  
+- Explore ensemble voting / stacking of TF-IDF and BERT.  
