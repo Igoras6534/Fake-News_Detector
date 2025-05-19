@@ -7,3 +7,7 @@ nltk
 spacy
 scikit-learn
 openpyxl
+datasets
+transformers
+evaluate
+torch

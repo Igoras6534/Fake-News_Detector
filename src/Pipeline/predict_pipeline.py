@@ -2,6 +2,10 @@ import sys
 import pandas as pd
 import spacy
 from src.exception import CustomException
+import torch
+import torch.nn.functional as F
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -39,3 +43,23 @@ class CustomData:
             return pd.DataFrame(custom_data_input_dict)
         except Exception as e:
             raise CustomException(e, sys)
+class BertFakeNews:
+    def __init__(
+        self,
+        model_repo: str = "Igoras6534/fine_tuned_BERT_fakenews_8000",
+        tokenizer_repo: str = "bert-base-uncased",  
+    ):
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_repo)
+        self.model     = AutoModelForSequenceClassification.from_pretrained(model_repo)
+        self.model.eval()
+
+    def predict_fake_prob(self, title: str, text: str) -> float:
+        joined = title + " " + text
+        inputs   = self.tokenizer(joined,
+                                truncation=True,
+                                return_tensors="pt",
+                                padding = True)
+        with torch.no_grad():
+            outputs = self.model(**inputs)
+        probs = F.softmax(outputs.logits, dim=-1)        
+        return probs.squeeze().tolist()[0]
