@@ -11,3 +11,4 @@ datasets
 transformers
 evaluate
 torch
+xgboost

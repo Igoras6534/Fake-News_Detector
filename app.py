@@ -7,15 +7,14 @@ from datetime import datetime
 import sys
 import spacy
 
-from src.Pipeline.predict_pipeline import CustomData , BertFakeNews 
+from src.Pipeline.predict_pipeline import BertFakeNews, New_LR_Predictor
 app = Flask(__name__)
 nlp = spacy.load("en_core_web_sm")
 
 model_path = os.path.join("artifact", "model.pkl")
 preprocessor_path = os.path.join("artifact", "preprocessor.pkl")
 
-model = load_object(model_path)
-preprocessor = load_object(preprocessor_path)
+lr_predictor = New_LR_Predictor()
 bert_pipe = BertFakeNews()
 
 
@@ -28,14 +27,9 @@ def index():
             text = request.form["text"]
             date = request.form["date"]
 
-            # TFIDF + LR
-            input_data = CustomData(title, text, date)
-            df = input_data.get_data_as_data_frame()
-
-            transformed = preprocessor.transform(df)
-            prediction_lr = model.predict_proba(transformed)[0][1]  
-
-            percent_lr = round(prediction_lr * 100, 2)
+            # TFIDF + Logistic Regression
+            new_lr_result = lr_predictor.predict(title,text)
+            percent_lr = round(new_lr_result['probability'] * 100,2)
 
             #Fine Tuned BERT
             percent_BERT = bert_pipe.predict_fake_prob(title,text)
