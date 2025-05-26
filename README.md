@@ -17,5 +17,5 @@ Two models run side-by-side: a **TF-IDF+LR** and a **fine-tuned BERT** approach.
 
 ## Future Steps 🚧
 
-- Retrain the TF-IDF pipeline on the 2023 corpus with full CV + grid-search (LR, SVM, XGBoost).  
+- Retrain the TF-IDF pipeline on the 2023 corpus with full CV + grid-search (RFC, XGBoost).  
 - Explore ensemble voting / stacking of TF-IDF and BERT.  
